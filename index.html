@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Robot Verification</title>
+  <style>
+    body {
+      background: #f0f2f5;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .captcha-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    button {
+      background: #1877f2;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .verify-images {
+      display: none;
+      margin-top: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 10px 0;
+    }
+    .grid img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border: 2px solid transparent;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .grid img.selected {
+      border-color: #1877f2;
+    }
+    .message {
+      margin-top: 10px;
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="captcha-box">
+    <h3>Are you a robot?</h3>
+    <button onclick="showImages()">Verify</button>
+    
+    <div class="verify-images" id="imageSection">
+      <p>Select all images with a car:</p>
+      <div class="grid" id="imageGrid">
+        <img src="https://source.unsplash.com/100x100/?car" onclick="selectImage(this)">
+        <img src="https://source.unsplash.com/100x100/?tree" onclick="selectImage(this)">
+        <img src="https://source.unsplash.com/100x100/?car" onclick="selectImage(this)">
+        <img src="https://source.unsplash.com/100x100/?dog" onclick="selectImage(this)">
+        <img src="https://source.unsplash.com/100x100/?car" onclick="selectImage(this)">
+        <img src="https://source.unsplash.com/100x100/?building" onclick="selectImage(this)">
+      </div>
+      <button onclick="submitVerification()">Submit</button>
+      <div class="message" id="successMessage" style="display:none;">✅ Verified Successfully!</div>
+    </div>
+  </div>
+
+  <script>
+    function showImages() {
+      document.getElementById('imageSection').style.display = 'block';
+    }
+
+    function selectImage(img) {
+      img.classList.toggle('selected');
+    }
+
+    function submitVerification() {
+      const selected = document.querySelectorAll('.grid img.selected');
+      if (selected.length >= 3) {
+        document.getElementById('successMessage').style.display = 'block';
+      } else {
+        alert("Please select all images with a car.");
+      }
+    }
+  </script>
+</body>
+</html>
